@@ -1,42 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-    <head th:replace="plantilla/template :: head">
+    <head th:replace="~{plantilla/template :: head}"></head>
 
-    </head>
+
     <body>
-        <header th:replace="plantilla/template :: header"></header>
+    <header th:replace="~{plantilla/template :: header}"></header>
         <div class="container">
-            <div class="card bg-ligth">
-                <div class="card-header bg-dark text-white" th:text="${titulo}">
-                    <div class="card-body">
-                        <form th:object="${cliente}">
+             <div class="card bg-ligth">
+                 <div class="card-header bg-dark text-white" th:text="${titulo}"></div>
+                     <div class="card-body">
+                        <form th:action="@{/views/clientes/save}" th:object="${cliente}" method="post"> <!-- -->
                             <div class="form-group row">
                                 <label class="col-md-2" for="nombre">Nombre:</label>
                                 <input type="text" th:field="*{nombre}" class="form-control form-control-sm col-md-6" id="nombre" placeholder="Nombre del cliente">
-                                <small></small>
+                                <small></small> <!-- -->
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-2" for="apellidos">Apellidos:</label>
                                 <input type="text" th:field="*{apellidos}" class="form-control form-control-sm col-md-6" id="apellidos" placeholder="Apellidos del cliente">
-                                <small></small>
+                                <small></small><!-- -->
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-2" for="telefono">Teléfono:</label>
                                 <input type="text" th:field="*{telefono}" class="form-control form-control-sm col-md-6" id="telefono" placeholder="Teléfono del cliente">
-                                <small></small>
+                                <small></small> <!--  -->
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-2" for="email">Email:</label>
                                 <input type="text" th:field="*{email}" class="form-control form-control-sm col-md-6" id="email" placeholder="Email del cliente">
-                                <small></small>
+                                <small></small> <!-- -->
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-2" for="ciudad">Ciudad:</label>
                                 <select th:field="*{ciudad}" class="form-control form-control-sm col-md-6" id="ciudad">
-                                    <option th:each="ciudad:${ciudades}"
+
+                                     <option th:each="ciudad:${ciudades}"
                                             th:value="${ciudad.id}"
                                             th:text="${ciudad.ciudad}">
                                     </option>
+
                                 </select>
                             </div>
                             <div class="card-footer bg-dark">
@@ -44,10 +46,9 @@
                             </div>
                         </form>
                     </div>
-                </div>
-            </div>
+             </div>
         </div>
-        <footer th:replace="plantilla/template :: footer"></footer>
+        <footer th:replace="~{plantilla/template :: footer}"></footer>
     </body>
 </html>
 

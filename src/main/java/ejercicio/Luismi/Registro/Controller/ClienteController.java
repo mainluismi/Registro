@@ -1,5 +1,6 @@
 package ejercicio.Luismi.Registro.Controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import ejercicio.Luismi.Registro.Entity.Ciudad;
 import ejercicio.Luismi.Registro.Entity.Cliente;
 import ejercicio.Luismi.Registro.Service.CiudadService;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -21,7 +24,7 @@ public class ClienteController {
     @Autowired
     private CiudadService ciudadService;
 
-    @GetMapping("/")
+    @GetMapping("/listar")
     public String listarClientes(Model model){
         List<Cliente> listadoClientes = clienteService.listarTodos();
         model.addAttribute("titulo","Lista de clientes");
@@ -37,5 +40,12 @@ public class ClienteController {
         model.addAttribute("cliente", cliente);
         model.addAttribute("ciudades", listCiudades);
         return "views/clientes/frmCrear";
+    }
+
+    @PostMapping("/save")
+    public String guardar(@ModelAttribute Cliente cliente){
+        clienteService.guardar(cliente);
+        System.out.println("Cliente guardado con exito");
+        return "views/clientes/listar";
     }
 }
