@@ -11,6 +11,7 @@
                      <div class="card-body">
                         <form th:action="@{/views/clientes/save}" th:object="${cliente}" method="post"> <!-- -->
                             <div class="form-group row">
+                                <input type="hidden" th:field="*{id}">
                                 <label class="col-md-2" for="nombre">Nombre:</label>
                                 <input type="text" th:field="*{nombre}" class="form-control form-control-sm col-md-6" id="nombre" placeholder="Nombre del cliente">
                                 <small></small> <!-- -->

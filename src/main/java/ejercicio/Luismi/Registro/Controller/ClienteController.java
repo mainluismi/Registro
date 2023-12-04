@@ -8,10 +8,7 @@ import ejercicio.Luismi.Registro.Service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -46,6 +43,25 @@ public class ClienteController {
     public String guardar(@ModelAttribute Cliente cliente){
         clienteService.guardar(cliente);
         System.out.println("Cliente guardado con exito");
-        return "views/clientes/listar";
+        return "redirect:/views/clientes/listar";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editar(@PathVariable("id") Long idCliente, Model model){
+
+        Cliente cliente = clienteService.buscarPorId(idCliente);
+        List<Ciudad> listCiudades = ciudadService.listarCiudades();
+        model.addAttribute("titulo","Formulario: Editar cliente");
+        model.addAttribute("cliente", cliente);
+        model.addAttribute("ciudades", listCiudades);
+        return "views/clientes/frmCrear";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String eliminar(@PathVariable("id") Long idCliente){
+
+        clienteService.eliminar(idCliente);
+        System.out.println("Retgistro eliminado con exito");
+        return "redirect:/views/clientes/listar";
     }
 }
